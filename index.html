@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simón Castelli — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #10151f;
+    --panel: #161d2b;
+    --line: #2a3648;
+    --text: #e9e6dc;
+    --text-dim: #8a97ab;
+    --amber: #dcaa4a;
+    --blue: #4d6d94;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Newsreader', serif;
+    line-height: 1.55;
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size: 64px 64px;
+    background-attachment: fixed;
+    background-position: -1px -1px;
+    opacity: 0;
+    animation: fadeIn 0.8s ease forwards;
+  }
+
+  @keyframes fadeIn { to { opacity: 1; } }
+
+  @media (prefers-reduced-motion: reduce) {
+    body { animation: none; opacity: 1; }
+    html { scroll-behavior: auto; }
+  }
+
+  .mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .wrap {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+
+  /* HEADER */
+  header {
+    padding: 96px 0 64px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12.5px;
+    color: var(--blue);
+    letter-spacing: 0.02em;
+    margin-bottom: 22px;
+  }
+
+  h1 {
+    font-size: clamp(40px, 7vw, 64px);
+    font-weight: 500;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    max-width: 11ch;
+  }
+
+  .role {
+    margin-top: 18px;
+    font-size: 19px;
+    color: var(--text-dim);
+    max-width: 46ch;
+  }
+
+  .contact-row {
+    margin-top: 32px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+  }
+
+  .contact-row a {
+    color: var(--text);
+    text-decoration: none;
+    border-bottom: 1px solid var(--blue);
+    padding-bottom: 2px;
+    transition: border-color 0.15s, color 0.15s;
+  }
+
+  .contact-row a:hover, .contact-row a:focus-visible {
+    color: var(--amber);
+    border-color: var(--amber);
+  }
+
+  /* SECTIONS */
+  section {
+    padding: 56px 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  section:last-of-type { border-bottom: none; }
+
+  .sec-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 32px;
+  }
+
+  h2 {
+    font-size: 26px;
+    font-weight: 500;
+  }
+
+  .sec-note {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--text-dim);
+  }
+
+  p { color: var(--text-dim); max-width: 62ch; }
+
+  /* ABOUT */
+  #about p { font-size: 17.5px; color: var(--text); }
+
+  /* SKILLS */
+  .skill-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px 32px;
+  }
+
+  .skill-block .k {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11.5px;
+    color: var(--blue);
+    margin-bottom: 8px;
+  }
+
+  .skill-block .v {
+    font-size: 16.5px;
+  }
+
+  /* PROJECTS */
+  .project {
+    border: 1px solid var(--line);
+    background: var(--panel);
+    padding: 26px 28px;
+    margin-bottom: 20px;
+    position: relative;
+  }
+
+  .project:last-child { margin-bottom: 0; }
+
+  .project-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .project h3 {
+    font-size: 21px;
+    font-weight: 500;
+  }
+
+  .project .lang {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--amber);
+    white-space: nowrap;
+  }
+
+  .project p {
+    margin-top: 10px;
+    font-size: 15.5px;
+  }
+
+  .project-links {
+    margin-top: 16px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12.5px;
+  }
+
+  .project-links a {
+    color: var(--text-dim);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: color 0.15s, border-color 0.15s;
+  }
+
+  .project-links a:hover, .project-links a:focus-visible {
+    color: var(--amber);
+    border-color: var(--amber);
+  }
+
+  /* EXPERIENCE / EDUCATION */
+  .entry {
+    display: grid;
+    grid-template-columns: 130px 1fr;
+    gap: 16px;
+    margin-bottom: 26px;
+  }
+
+  .entry:last-child { margin-bottom: 0; }
+
+  .entry .when {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12.5px;
+    color: var(--text-dim);
+    padding-top: 3px;
+  }
+
+  .entry .what h3 {
+    font-size: 17.5px;
+    font-weight: 500;
+    color: var(--text);
+  }
+
+  .entry .what p {
+    margin-top: 4px;
+    font-size: 15px;
+  }
+
+  /* FOOTER */
+  footer {
+    padding: 48px 0 80px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12.5px;
+    color: var(--text-dim);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  footer a {
+    color: var(--text-dim);
+    border-bottom: 1px solid var(--line);
+    text-decoration: none;
+  }
+
+  footer a:hover, footer a:focus-visible {
+    color: var(--amber);
+    border-color: var(--amber);
+  }
+
+  a:focus-visible, button:focus-visible {
+    outline: 2px solid var(--amber);
+    outline-offset: 3px;
+  }
+
+  @media (max-width: 560px) {
+    .skill-grid { grid-template-columns: 1fr; }
+    .entry { grid-template-columns: 1fr; gap: 4px; }
+    header { padding: 64px 0 48px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <header>
+    <div class="tag">PORTFOLIO — REV. 2026.09</div>
+    <h1>Simón Pedro Castelli</h1>
+    <p class="role">Estudiante de Ingeniería Informática en la Facultad de Ingeniería del Ejército. Desarrollo software con foco en resolución de problemas, algoritmos y sistemas de gestión.</p>
+    <div class="contact-row">
+      <a href="mailto:Castellisimon1@gmail.com">Castellisimon1@gmail.com</a>
+      <a href="https://www.linkedin.com/in/castelli-simon-pedro" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com/SimonCastelli" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </header>
+
+  <section id="about">
+    <div class="sec-head">
+      <h2>Sobre mí</h2>
+    </div>
+    <p>Me apasionan los desafíos y disfruto de la resolución de problemas aplicando pensamiento lógico y creativo. Busco mantenerme actualizado en nuevas tecnologías y aplicar lo aprendido en proyectos concretos, desde algoritmos de compresión hasta sistemas de gestión completos.</p>
+  </section>
+
+  <section id="skills">
+    <div class="sec-head">
+      <h2>Habilidades</h2>
+    </div>
+    <div class="skill-grid">
+      <div class="skill-block">
+        <div class="k">LENGUAJES</div>
+        <div class="v">C, C++, C#, Java</div>
+      </div>
+      <div class="skill-block">
+        <div class="k">ENTORNOS</div>
+        <div class="v">VS Code, CLion, IntelliJ IDEA</div>
+      </div>
+      <div class="skill-block">
+        <div class="k">HERRAMIENTAS</div>
+        <div class="v">Linux, bases de datos relacionales, Docker, n8n</div>
+      </div>
+      <div class="skill-block">
+        <div class="k">IDIOMAS</div>
+        <div class="v">Español (nativo), Inglés (intermedio)</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="sec-head">
+      <h2>Proyectos</h2>
+      <div class="sec-note">SimonCastelli/*</div>
+    </div>
+
+    <div class="project">
+      <div class="project-top">
+        <h3>BDA — Sistema de Stock</h3>
+        <span class="lang">TypeScript</span>
+      </div>
+      <p>Sistema de gestión de stock desarrollado como proyecto de Bases de Datos Aplicadas. Maneja el registro y control de inventario.</p>
+      <div class="project-links">
+        <a href="https://github.com/SimonCastelli/BDA" target="_blank" rel="noopener">Ver repositorio →</a>
+      </div>
+    </div>
+
+    <div class="project">
+      <div class="project-top">
+        <h3>Compresión de Archivos (Huffman)</h3>
+        <span class="lang">Java</span>
+      </div>
+      <p>Implementación del algoritmo de Huffman para compresión y descompresión de archivos, desarrollado como trabajo práctico.</p>
+      <div class="project-links">
+        <a href="https://github.com/SimonCastelli/HuffmanTPEmpty_v2.3.9" target="_blank" rel="noopener">Ver repositorio →</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience">
+    <div class="sec-head">
+      <h2>Experiencia</h2>
+    </div>
+    <div class="entry">
+      <div class="when">2026</div>
+      <div class="what">
+        <h3>Balance Group — Desarrollador de Software</h3>
+        <p>Medio tiempo, 3 meses.</p>
+      </div>
+    </div>
+    <div class="entry">
+      <div class="when">2025</div>
+      <div class="what">
+        <h3>Clases particulares de Matemática (CBC)</h3>
+        <p>Dictado de clases particulares.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="education">
+    <div class="sec-head">
+      <h2>Educación</h2>
+    </div>
+    <div class="entry">
+      <div class="when">En curso</div>
+      <div class="what">
+        <h3>Ingeniería en Informática</h3>
+        <p>Facultad de Ingeniería del Ejército (FIE)</p>
+      </div>
+    </div>
+    <div class="entry">
+      <div class="when">2023</div>
+      <div class="what">
+        <h3>Bachiller en Ciencias Naturales</h3>
+        <p>Colegio Secundario Puerta del Sol</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span>Simón Pedro Castelli</span>
+    <a href="mailto:Castellisimon1@gmail.com">Contacto</a>
+  </footer>
+
+</div>
+
+</body>
+</html>
